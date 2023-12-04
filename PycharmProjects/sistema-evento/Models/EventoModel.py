@@ -1,9 +1,11 @@
 class EventoModel:
-    def __init__(self):
+    def __init__(self, id=None, nome=None, endereco=None, categoria=None, horario=None, descricao=None):
         self.eventos = []
+        self.id = id
+        self.nome = nome
+        self.endereco = endereco
+        self.categoria = categoria
+        self.horario = horario
+        self.descricao = descricao
 
-    def obter_evento_por_id(self, evento_id):
-        for evento in self.eventos:
-            if evento['id'] == evento_id:
-                return evento
-        return None
+
