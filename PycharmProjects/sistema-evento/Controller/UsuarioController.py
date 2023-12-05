@@ -1,10 +1,13 @@
 # Controller/UsuarioController.py
 from Services.UsuarioService import UsuarioService
 from Services.EventoServices import EventoService
-
+from Controller.EventoController import  EventoController
 class UsuarioController:
-    service = UsuarioService()
-    evento_service = EventoService()
+    def __init__(self, evento_service):
+        self.service = UsuarioService(evento_service)
+        self.evento_service = EventoService
+
+
 
     @staticmethod
     def atualizar_email(usuario, novo_email):
@@ -27,28 +30,41 @@ class UsuarioController:
             print("Lista de Usuários:")
             for usuario in todos_usuarios:
                 print(f"Nome: {usuario.nome}, Idade: {usuario.idade}, Email: {usuario.email}, CPF: {usuario.id}")
+                if usuario.eventos_associados:
+                    print("Eventos Associados:")
+                    for evento in usuario.eventos_associados:
+                        print(
+                            f"  - ID do Evento: {evento.id}, Nome do Evento: {evento.nome}, horario do Evento: {evento.horario}")
+                else:
+                    print("Usuário sem eventos associados.")
         else:
             print("Não há usuários disponíveis.")
 
-    def adicionar_evento_a_usuario(self):
-        cpf_usuario = input("Digite o CPF do usuário: ")
-        id_evento = int(input("Digite o ID do evento: "))
-
-        usuario = self.service.obter_usuario_por_cpf(cpf_usuario)
-        evento = self.evento_service.obter_evento_por_id(id_evento)
-
-        if usuario and evento:
-            self.service.adicionar_evento_a_usuario(usuario, evento)
-            print(f"Evento adicionado ao usuário {usuario.nome}.")
-        else:
-            print("Usuário ou evento não encontrado.")
-
-    def obter_usuario_por_cpf(self, cpf):
+    def obter_usuario_por_cpf(self):
+        cpf = input("Digite o CPF do usuário: ")
         usuario = self.service.obter_usuario_por_cpf(cpf)
+
+        if usuario:
+            print(f"Usuário encontrado: Nome - {usuario.nome}, Idade - {usuario.idade}, Email - {usuario.email}, CPF - {usuario.id}")
+        else:
+            print(f"Usuário com CPF {cpf} não encontrado.")
+
+    def adicionar_usuario_evento(self, evento):
+        cpf = input("Digite o CPF do usuário: ")
+        print("evento capturado",evento)
+        usuario = self.service.obter_usuario_por_cpf(cpf)
+        event
+
+
+
+
 
 
         if usuario:
-            print(
-                f"Usuário encontrado: Nome - {usuario.nome}, Idade - {usuario.idade}, Email - {usuario.email}, CPF - {usuario.id}")
+            self.service.adicionar_evento_a_usuario(usuario, evento)
+            print(f"Evento adicionado ao usuário {usuario.nome}.")
+
+
         else:
-            print(f"Usuário com CPF {cpf} não encontrado.")
+            print("Usuário não encontrado.")
+
