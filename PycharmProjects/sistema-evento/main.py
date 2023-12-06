@@ -1,39 +1,86 @@
-# main.py
-from Models.EventoModel import EventoModel
-from View.EventoView import EventoView
-from Controller.EventoController import EventoController
-from Controller.UsuarioController import UsuarioController
-from Services.EventoServices import EventoService
+from Service.UsuarioService import UsuarioService
+from Service.EventoService import EventoService
 
-modelo = EventoModel()
-visualizacao = EventoView()
-controle = EventoController(modelo, visualizacao)
-evento_service = EventoService()
-usuarioController = UsuarioController(evento_service)
+def main():
 
-def executar():
+
+    usuario_service = UsuarioService()
+    evento_service = EventoService()
+
     while True:
-        print("Selecione o que você pretende fazer")
-        print("Digite 1 para criar um Usuario, digite 2 para criar um Evento, digite 3 para ver todos os eventos e digite 4 para ver todos usuarios, digite 5 para adicionar um evento a um usuario e 6 para sair")
-        valor_input = int(input())
+        print("\nOpções:")
+        print("1. Criar Usuário")
+        print("2. Criar Evento")
+        print("3. Obter Todos os Eventos")
+        print("4. Obter Todos os Usuários")
+        print("5. Adicionar Usuário a um Evento")
+        print("0. Sair")
 
-        if valor_input == 1:
-            usuarioController.criar_usuario()
-        elif valor_input == 2:
-            controle.adicionar_evento()
-        elif valor_input == 3:
-            controle.obter_todos_eventos()
-        elif valor_input == 4:
-            usuarioController.obter_todos_usuarios()
-        elif valor_input == 5:
-            evento=controle.obterEventoPorId()
-            usuarioController.adicionar_usuario_evento(evento)
+        opcao = input("Escolha uma opção: ")
 
-
-        elif valor_input == 6:
-            print("Saindo do programa. Até mais!")
+        if opcao == "1":
+            criar_usuario(usuario_service)
+        elif opcao == "2":
+            criar_evento(evento_service)
+        elif opcao == "3":
+            obter_todos_eventos(evento_service)
+        elif opcao == "4":
+            obter_todos_usuarios(usuario_service)
+        elif opcao == "5":
+            adicionar_usuario_a_evento(usuario_service, evento_service)
+        elif opcao == "0":
+            print("Saindo do programa.")
             break
         else:
             print("Opção inválida. Tente novamente.")
 
-executar()
+def criar_usuario(usuario_service):
+    idUsuario = input("Digite o ID do usuário: ")
+    nomeUsuario = input("Digite o Nome do Usuário: ")
+    cpfUsuario = input("Digite o CPF do Usuário: ")
+    emailUsuario = input("Digite o Email do Usuário: ")
+    senhaUsuario = input("Digite a Senha do Usuário: ")
+
+    usuario_service.criar_usuario(idUsuario, nomeUsuario, cpfUsuario, emailUsuario, senhaUsuario)
+
+def criar_evento(evento_service):
+    idEvento = input("Digite o ID do evento: ")
+    nomeEvento = input("Digite o Nome do Evento: ")
+    endereco = input("Digite o Endereço do Evento: ")
+    categoria = input("Digite a Categoria do Evento: ")
+    horario = input("Digite o Horário do Evento: ")
+    descricao = input("Digite a Descrição do Evento: ")
+
+    evento_service.criar_evento(idEvento, nomeEvento, endereco, categoria, horario, descricao)
+
+def obter_todos_eventos(evento_service):
+    eventos = evento_service.obter_todos_eventos()
+
+    if eventos:
+        print("\nLista de Eventos:")
+        for evento in eventos:
+            print(evento)
+    else:
+        print("Não há eventos disponíveis.")
+
+def obter_todos_usuarios(usuario_service):
+    usuarios = usuario_service.obter_todos_usuarios()
+
+    if usuarios:
+        print("\nLista de Usuários:")
+        for usuario in usuarios:
+            print(usuario)
+    else:
+        print("Não há usuários disponíveis.")
+
+def adicionar_usuario_a_evento(usuario_service, evento_service):
+    cpf_usuario = input("Digite o CPF do usuário: ")
+    usuario = usuario_service.obter_usuario_por_cpf(cpf_usuario)
+
+    if usuario:
+        id_evento = input("Digite o ID do evento: ")
+        evento_service.adicionar_usuario_ao_evento(usuario, id_evento)
+    else:
+        print(f"Usuário com CPF {cpf_usuario} não encontrado.")
+if __name__ == "__main__":
+    main()

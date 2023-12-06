@@ -1,0 +1,10 @@
+Usuario: Nome: João, Email: joao@email.com, CPF: 123456789
+Evento: Nome: Festa, Endereço: Rua A, Categoria: Social, Horário: 20:00, Descrição: Descrição da festa
+Usuario: Nome: , Email: 1, CPF: xss
+Usuario: Nome: João, Email: joao@email.com, CPF: 123456789
+Evento: Nome: Festa, Endereço: Rua A, Categoria: Social, Horário: 20:00, Descrição: Descrição da festa
+Evento: Nome: xxxx, Endereço: ksks, Categoria: kssks, Horário: 9, Descrição: sjsjs
+Usuario: Nome: João, Email: joao@email.com, CPF: 123456789
+Evento: Nome: Festa, Endereço: Rua A, Categoria: Social, Horário: 20:00, Descrição: Descrição da festa
+Usuario: Nome: João, Email: joao@email.com, CPF: 123456789
+Evento: Nome: Festa, Endereço: Rua A, Categoria: Social, Horário: 20:00, Descrição: Descrição da festa
