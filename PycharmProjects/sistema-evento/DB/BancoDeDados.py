@@ -3,12 +3,13 @@ class BancoDeDados:
         self.nome_do_arquivo = nome_do_arquivo
 
     def criar_tabelas(self):
-        # Não é necessário para salvar em arquivo de texto
+
         pass
 
     def inserir_usuario(self, nome, email, cpf):
         with open(self.nome_do_arquivo, 'a') as arquivo:
             arquivo.write(f'Usuario: Nome: {nome}, Email: {email}, CPF: {cpf}\n')
+
 
     def inserir_evento(self, nome_evento, endereco, categoria, horario, descricao):
         with open(self.nome_do_arquivo, 'a') as arquivo:
@@ -30,10 +31,3 @@ class BancoDeDados:
                     print(linha.strip())
 
 
-# Exemplo de uso:
-banco = BancoDeDados()
-banco.inserir_usuario('João', 'joao@email.com', '123456789')
-banco.inserir_evento('Festa', 'Rua A', 'Social', '20:00', 'Descrição da festa')
-
-banco.imprimir_usuarios()
-banco.imprimir_eventos()

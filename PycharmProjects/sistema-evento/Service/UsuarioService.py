@@ -1,24 +1,25 @@
 # Services/UsuarioService.py
 from Model.UsuarioModel import UsuarioModel
 from DB.BancoDeDados import BancoDeDados
+import random
 
-# Exemplo de uso da classe BancoDeDados
 banco = BancoDeDados()
 
-# Cria as tabelas no banco de dados
 banco.criar_tabelas()
 class UsuarioService:
-
 
     def __init__(self):
         self.usuarios = []
 
+    def gerar_id_aleatorio(self):
+        return random.randint(1, 999999)
 
-    def criar_usuario(self, idUsuario, nomeUsuario, cpfUsuario, emailUsuario, senhaUsuario):
+    def criar_usuario(self, nomeUsuario, cpfUsuario, emailUsuario, senhaUsuario):
+        idUsuario = self.gerar_id_aleatorio()
         usuario = UsuarioModel(id=idUsuario, nome=nomeUsuario, cpf=cpfUsuario, email=emailUsuario, senha=senhaUsuario)
         self.usuarios.append(usuario)
-        banco.inserir_usuario(nomeUsuario,cpfUsuario,emailUsuario)
-        print(f"Usuário {nomeUsuario} criado com sucesso.")
+        banco.inserir_usuario(nomeUsuario, emailUsuario, cpfUsuario)
+        print(f"Usuário {nomeUsuario} criado com sucesso, ID: {idUsuario}.")
 
     def adicionar_evento_associado(self, usuario, evento_id):
         evento = self.obter_evento_por_id(evento_id)
@@ -30,7 +31,6 @@ class UsuarioService:
 
     def obter_todos_usuarios(self):
         banco.imprimir_usuarios()
-
         return self.usuarios
 
     def obter_usuario_por_id(self, id_usuario):

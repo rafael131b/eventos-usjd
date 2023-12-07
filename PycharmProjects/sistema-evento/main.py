@@ -41,7 +41,9 @@ def criar_usuario(usuario_service):
     emailUsuario = input("Digite o Email do Usuário: ")
     senhaUsuario = input("Digite a Senha do Usuário: ")
 
-    usuario_service.criar_usuario(idUsuario, nomeUsuario, cpfUsuario, emailUsuario, senhaUsuario)
+
+    usuario_service.criar_usuario(nomeUsuario, cpfUsuario, emailUsuario, senhaUsuario)
+
 
 def criar_evento(evento_service):
     idEvento = input("Digite o ID do evento: ")
